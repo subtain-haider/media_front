@@ -14,6 +14,7 @@ type UploadDialogProps = {
 export default function UploadDialog({ open, onClose, onUpload }: UploadDialogProps) {
     const [tags, setTags] = useState('');
     const [files, setFiles] = useState<File[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const { getRootProps, getInputProps } = useDropzone({
         accept: { 'image/*': [], 'video/*': [], 'application/pdf': [] },
@@ -80,16 +81,19 @@ export default function UploadDialog({ open, onClose, onUpload }: UploadDialogPr
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => {
+                    onClick={async () => {
                         if (files.length === 0) {
                             return alert('Please select at least one file to upload.');
                         }
-                        onUpload(files, tags);
-                        setFiles([]);
-                        setTags('');
+                        setLoading(true); // Set loading to true when the upload starts
+                        await onUpload(files, tags); // Call the onUpload function
+                        setFiles([]); // Clear files after upload
+                        setTags(''); // Clear tags after upload
+                        setLoading(false); // Set loading to false when the upload is done
                     }}
+                    disabled={loading} // Disable the button when uploading
                 >
-                    Upload
+                    {loading ? "Uploading..." : "Upload"} {/* Display 'Uploading...' while loading */}
                 </Button>
             </DialogActions>
         </Dialog>
