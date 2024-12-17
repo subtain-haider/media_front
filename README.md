@@ -85,6 +85,16 @@ This project is a **File Management Dashboard** built with **Next.js** and **Typ
 
 ---
 
+### Environment Variables
+
+The API URL is configurable through environment variables. Add the following to a `.env` file in the project root:
+
+```env
+REACT_APP_API_URL=http://localhost:5002/api  # For Development
+REACT_APP_API_URL=https://your-production-api.com/api  # For Production
+
+
+```
 ## Project Structure
 
 ```
