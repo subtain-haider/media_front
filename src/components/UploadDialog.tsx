@@ -16,7 +16,7 @@ export default function UploadDialog({ open, onClose, onUpload }: UploadDialogPr
     const [files, setFiles] = useState<File[]>([]);
 
     const { getRootProps, getInputProps } = useDropzone({
-        accept: { 'image/*': [], 'video/*': [] },
+        accept: { 'image/*': [], 'video/*': [], 'application/pdf': [] },
         onDrop: (acceptedFiles) => {
             // Append new files without replacing the current ones
             setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
