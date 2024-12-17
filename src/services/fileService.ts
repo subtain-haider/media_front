@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from '@/utils/tokenHelper';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5002/api';
+const API_URL = process.env.REACT_APP_API_URL || 'http://164.92.192.18/api';
 
 // Fetch all files
 export const fetchFiles = async () => {
