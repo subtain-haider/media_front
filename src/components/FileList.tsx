@@ -12,6 +12,7 @@ type File = {
     url: string;
     size: number;
     tags: string[];
+    publicViews: number;
 };
 
 type FileListProps = {
@@ -106,6 +107,10 @@ export default function FileList({ files = [], setFiles }: FileListProps) {
                                             <Box>
                                                 <Typography variant="body2" color="text.secondary">
                                                     {(file.size / 1024).toFixed(2)} KB
+                                                </Typography>
+                                                {/* Display public views */}
+                                                <Typography variant="body2" color="text.secondary">
+                                                    Views: {file.publicViews || 0} {/* Display the public view count */}
                                                 </Typography>
                                                 <Tooltip
                                                     title={copiedFileId === file._id ? 'Copied!' : 'Copy Public Link'}
