@@ -35,7 +35,18 @@ export default function FileList({ files = [], setFiles }: FileListProps) {
         try {
             const response = await generatePublicLink(fileId);
             if (response.publicLink) {
-                navigator.clipboard.writeText(response.publicLink);
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    // Clipboard API is available
+                    await navigator.clipboard.writeText(response.publicLink);
+                } else {
+                    // Fallback for unsupported clipboard API
+                    const tempTextarea = document.createElement('textarea');
+                    tempTextarea.value = response.publicLink;
+                    document.body.appendChild(tempTextarea);
+                    tempTextarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempTextarea);
+                }
                 setCopiedFileId(fileId);
                 setTimeout(() => setCopiedFileId(null), 2000); // Reset copied state
             }
